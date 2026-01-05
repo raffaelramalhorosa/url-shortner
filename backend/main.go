@@ -6,6 +6,7 @@ import (
 	"encoding/base64"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -62,8 +63,14 @@ func main() {
 		c.JSON(200, gin.H{"status": "ok"})
 	})
 
-	log.Println(" Servidor rodando em http://localhost:8080")
-	r.Run(":8080")
+	// Pegar porta do ambiente (Railway) ou usar 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("🚀 Servidor rodando em http://localhost:%s\n", port)
+	r.Run(":" + port)
 }
 
 func initDB() {
@@ -87,7 +94,7 @@ func initDB() {
 		log.Fatal(err)
 	}
 
-	log.Println(" Banco de dados inicializado")
+	log.Println("✅ Banco de dados inicializado")
 }
 
 // Gerar código curto aleatório
