@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const API_URL = 'http://localhost:8080';
+const API_URL = import.meta.env.VITE_API_URL || 'http://url-shortner-r3d3.up.railway.app';
 
 export default function App() {
   const [longUrl, setLongUrl] = useState('');
